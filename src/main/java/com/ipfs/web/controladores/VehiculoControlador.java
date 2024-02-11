@@ -16,21 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ipfs.web.entidades.Vehiculo;
 import com.ipfs.web.servicios.VehiculoServicio;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
-@RequestMapping("/api")
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST} )
+@RequestMapping("/api/vehiculo")
 public class VehiculoControlador {
 
     @Autowired
     private VehiculoServicio vehiculoServicio;
 
-    @GetMapping("/vehiculos")
+    @GetMapping("/listar")
     public List<Vehiculo> listarVehiculos() {
 
         return vehiculoServicio.listarVehiculos();
     }
 
-    @GetMapping("/vehiculo/{idVehiculo}")
+    @GetMapping("/buscar/{idVehiculo}")
     public ResponseEntity<Vehiculo> obtenerVehiculo(@PathVariable String idVehiculo) {
         try {
             Vehiculo vehiculo = vehiculoServicio.obtenerVehiculoPorId(idVehiculo);
@@ -40,12 +43,12 @@ public class VehiculoControlador {
         }
     }
 
-    @PostMapping("/vehiculo/registrar")
+    @PostMapping("/registrar")
     public void guardarVehiculos(@RequestBody Vehiculo vehiculo) {
         vehiculoServicio.crearVehiculo(vehiculo);
     }
 
-    @PutMapping("/vehiculo/modificar/{idVehiculo}")
+    @PutMapping("/modificar/{idVehiculo}")
     public ResponseEntity<Vehiculo> actualizarVehiculo(@RequestBody Vehiculo vehiculo, @PathVariable String idVehiculo) {
         try {
             Vehiculo vehiculoExistente = vehiculoServicio.obtenerVehiculoPorId(idVehiculo);
@@ -56,7 +59,7 @@ public class VehiculoControlador {
         }
     }
 
-    @DeleteMapping("/vehiculo/eliminar/{idVehiculo}")
+    @DeleteMapping("/eliminar/{idVehiculo}")
     public void eliminarVehiculo(@PathVariable String idVehiculo) {
         vehiculoServicio.eliminarVehiculo(idVehiculo);
     }

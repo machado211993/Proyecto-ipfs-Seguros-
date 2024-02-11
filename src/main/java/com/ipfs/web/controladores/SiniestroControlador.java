@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/siniestro")
+@RequestMapping("/api/siniestro")
 public class SiniestroControlador {
 
     @Autowired
@@ -28,7 +28,7 @@ public class SiniestroControlador {
         return siniestroServicio.listarSiniestro();
     }
 
-    @GetMapping("/{idSiniestro}")
+    @GetMapping("/buscar/{idSiniestro}")
     public ResponseEntity<Siniestro> obtenerSiniestro(@PathVariable String idSiniestro) {
         try {
             Siniestro siniestro = siniestroServicio.obtenerSiniestroPorId(idSiniestro);

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/relevamiento")
+@RequestMapping("/api/relevamiento")
 public class RelevamientoControlador {
 
     @Autowired
@@ -28,7 +28,7 @@ public class RelevamientoControlador {
         return relevamientoServicio.listarRelevamiento();
     }
 
-    @GetMapping("/{idRelevamiento}")
+    @GetMapping("/buscar/{idRelevamiento}")
     public ResponseEntity<Relevamiento> obtenerRelevamiento(@PathVariable String idRelevamiento) {
         try {
             Relevamiento relevamiento = relevamientoServicio.obtenerRelevamientoPorId(idRelevamiento);

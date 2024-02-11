@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/api/cliente")
 public class ClienteControlador {
 
     @Autowired
@@ -28,7 +28,7 @@ public class ClienteControlador {
         return clienteServicio.listarClientes();
     }
 
-    @GetMapping("/{idCliente}")
+    @GetMapping("/buscar/{idCliente}")
     public ResponseEntity<Cliente> obtenerCliente(@PathVariable String idCliente) {
         try {
             Cliente cliente = clienteServicio.obtenerClientePorId(idCliente);
@@ -43,10 +43,10 @@ public class ClienteControlador {
         clienteServicio.crearCliente(cliente);
     }
 
-    @PutMapping("/modificar/{idVehiculo}")
-    public ResponseEntity<Cliente> actualizarCliente(@RequestBody Cliente cliente, @PathVariable String idCLiente) {
+    @PutMapping("/modificar/{idCliente}")
+    public ResponseEntity<Cliente> actualizarCliente(@RequestBody Cliente cliente, @PathVariable String idCliente) {
         try {
-            Cliente clienteExistente = clienteServicio.obtenerClientePorId(idCLiente);
+            Cliente clienteExistente = clienteServicio.obtenerClientePorId(idCliente);
             clienteServicio.crearCliente(cliente);
             return new ResponseEntity<Cliente>(HttpStatus.OK);
         } catch (Exception e) {
@@ -54,8 +54,8 @@ public class ClienteControlador {
         }
     }
 
-    @DeleteMapping("/eliminar/{idVehiculo}")
-    public void eliminarVehiculo(@PathVariable String idCliente) {
+    @DeleteMapping("/eliminar/{idCliente}")
+    public void eliminarCliente(@PathVariable String idCliente) {
         clienteServicio.eliminarCliente(idCliente);
     }
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/conductor")
+@RequestMapping("/api/conductor")
 public class ConductorControlador {
 
     @Autowired
@@ -28,7 +28,7 @@ public class ConductorControlador {
         return conductorServicio.listarConductor();
     }
 
-    @GetMapping("/{idConductor}")
+    @GetMapping("/buscar/{idConductor}")
     public ResponseEntity<Conductor> obtenerConductor(@PathVariable String idConductor) {
         try {
             Conductor conductor = conductorServicio.obtenerConductorPorId(idConductor);
