@@ -18,7 +18,7 @@ public class Siniestro {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
 
     private String idSiniestro;
-    private String polizaNumuero; 
+    private String polizaNumero; 
     private String numeroSiniestro; 
     private String fechaSiniestro; 
     private String horaSiniestro; 
@@ -30,9 +30,9 @@ public class Siniestro {
     public Siniestro() {
     }
 
-    public Siniestro(String idSiniestro, String polizaNumuero, String numeroSiniestro, String fechaSiniestro, String horaSiniestro, String lugarHecho, String estadoTiempo, String comisaria, String provincia) {
+    public Siniestro(String idSiniestro, String polizaNumero, String numeroSiniestro, String fechaSiniestro, String horaSiniestro, String lugarHecho, String estadoTiempo, String comisaria, String provincia) {
         this.idSiniestro = idSiniestro;
-        this.polizaNumuero = polizaNumuero;
+        this.polizaNumero = polizaNumero;
         this.numeroSiniestro = numeroSiniestro;
         this.fechaSiniestro = fechaSiniestro;
         this.horaSiniestro = horaSiniestro;

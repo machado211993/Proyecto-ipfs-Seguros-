@@ -94,8 +94,8 @@ public class VehiculoServicio {
         }
     }
 
-    public Vehiculo getOne(String idOferta) {
-        return vehiculoRepositorio.getOne(idOferta); //conseguir uno
+    public Vehiculo getOne(String idVehiculo) {
+        return vehiculoRepositorio.getOne(idVehiculo); //conseguir uno
     }
 
     @Transactional
