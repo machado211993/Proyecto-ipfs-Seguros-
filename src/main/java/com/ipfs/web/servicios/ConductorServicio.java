@@ -1,15 +1,11 @@
 package com.ipfs.web.servicios;
 
 import com.ipfs.web.entidades.Conductor;
-import com.ipfs.web.entidades.Siniestro;
 import com.ipfs.web.excepciones.MiException;
 import com.ipfs.web.repositorios.ConductorRepositorio;
-import com.ipfs.web.repositorios.SiniestroRepositorio;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.Optional;;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

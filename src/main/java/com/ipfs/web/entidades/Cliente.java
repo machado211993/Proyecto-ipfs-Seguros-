@@ -1,6 +1,5 @@
 package com.ipfs.web.entidades;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ public class Cliente {
     private String estadoCivil;
     private String fechaNacimiento;
 
-    public Cliente() {
+   public Cliente() {
     }
 
     public Cliente(String idCliente, String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) {
