@@ -56,7 +56,7 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                    <li><a class="dropdown-item" sec:authorize="hasRole('ADMIN')"  th:href="@{/rubro/registrar}">Crear Vehiculo</a></li>
+                    <li><a class="dropdown-item" sec:authorize="hasRole('ADMIN')"  th:href="@{/vehiculo/registrar}">Crear Vehiculo</a></li>
                     <li><hr class="dropdown-divider"></li>
 
                     <li><a class="dropdown-item" th:href="@{/vehiculo/lista}">Listar Vehiculo</a></li>
@@ -68,10 +68,10 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                    <li><a class="dropdown-item" sec:authorize="hasRole('ADMIN')"  th:href="@{/registrar}">Registrar clientes</a></li>
+                    <li><a class="dropdown-item" sec:authorize="hasRole('ADMIN')"  th:href="@{/cliente/registrar}">Registrar clientes</a></li>
                     <li><hr class="dropdown-divider"></li>
 
-                    <li><a class="dropdown-item"  th:href="@{/listarUsuarios}">Listar Clientes</a></li>
+                    <li><a class="dropdown-item"  th:href="@{/cliente/listar}">Listar Clientes</a></li>
 
                 </ul>
             </li>

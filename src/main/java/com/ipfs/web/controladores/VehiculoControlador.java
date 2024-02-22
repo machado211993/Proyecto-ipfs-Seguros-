@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
-@RequestMapping("/api/vehiculo")
+@RequestMapping("/vehiculo")
 public class VehiculoControlador {
 
     @Autowired
