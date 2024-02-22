@@ -40,7 +40,7 @@ public class AdminControlador {
         List<Usuario> usuarios = usuarioServicio.listarUsuarios();
         modelo.addAttribute("usuarios", usuarios);
 
-        return "usuario_list";
+        return "usuario_lista";
     }
 
     @GetMapping("/modificarRol/{id}")
