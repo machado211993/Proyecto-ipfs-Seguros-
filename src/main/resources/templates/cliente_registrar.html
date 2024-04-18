@@ -1,74 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace= "/fragments/head :: head"> </head>
-    <body>
-        <nav 
-            th:replace= "/fragments/navbar :: nav">    
-        </nav>
-        <div class="container-fluid m-5 contenedor">
-
-            <form class="formulario" th:action="@{/cliente/registro}" method="POST">
-                <div class="form-group my-3">
-                    <label class="mb-2">Cargar Clientes</label> 
-                    <input type="text" class="form-control" name="genero" placeholder="Genero">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="apellidoNombre" placeholder="Apellido y Nombre">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="relacion" placeholder="Relacion">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="dni" placeholder="Dni">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="tel" placeholder="Telefono o celular">                 
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="cp" placeholder="Codigo Postal">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="domicilio" placeholder="Domicilio">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="localidad" placeholder="Localidad">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="provincia" placeholder="Provincia">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="estadoCivil" placeholder="Estado Civil">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="fechaNacimiento" placeholder="Fecha de Nacimiento ">
-                </div>
+<head th:replace="/fragments/head :: head"></head>
+<body>
+    <nav th:replace="/fragments/navbar :: nav"></nav>
     
-
-                <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
-            </form>
-
-            <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
-                    <p class="card-text" th:text="${exito}"></p>
-                </div>
-            </div>
-            <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
-                <div class="card-body">
-                    <h5 class="card-title">Error 👎</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
-            </div>
-            <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+    <div class="card shadow">
+        <div class="card-body">
+            <form class="formulario" th:action="@{/cliente/registro}" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="genero" class="form-label">Género</label>
+                            <input type="text" class="form-control" id="genero" name="genero" placeholder="Género">
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellidoNombre" class="form-label">Apellido y Nombre</label>
+                            <input type="text" class="form-control" id="apellidoNombre" name="apellidoNombre" placeholder="Apellido y Nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="relacion" class="form-label">Relación</label>
+                            <input type="text" class="form-control" id="relacion" name="relacion" placeholder="Relación">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dni" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tel" class="form-label">Teléfono o Celular</label>
+                            <input type="text" class="form-control" id="tel" name="tel" placeholder="Teléfono o Celular">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="cp" class="form-label">Código Postal</label>
+                            <input type="text" class="form-control" id="cp" name="cp" placeholder="Código Postal">
+                        </div>
+                        <div class="mb-3">
+                            <label for="domicilio" class="form-label">Domicilio</label>
+                            <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="Domicilio">
+                        </div>
+                        <div class="mb-3">
+                            <label for="localidad" class="form-label">Localidad</label>
+                            <input type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad">
+                        </div>
+                        <div class="mb-3">
+                            <label for="provincia" class="form-label">Provincia</label>
+                            <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia">
+                        </div>
+                        <div class="mb-3">
+                            <label for="estadoCivil" class="form-label">Estado Civil</label>
+                            <input type="text" class="form-control" id="estadoCivil" name="estadoCivil" placeholder="Estado Civil">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                            <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de Nacimiento">
+                        </div>
                     </div>
                 </div>
-            </section>
+                <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+            </form>
         </div>
+    </div>
+    
 
-        <footer th:replace= "/fragments/footer :: footer"> </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    </body>
+        <div th:if="${exito} != null" class="card text-white bg-success mb-3 mt-3 mensajeExito">
+            <div class="card-body">
+                <h5 class="card-title">¡Éxito!</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+        <div th:if="${error} != null" class="card text-white bg-danger mb-3 mensajeError">
+            <div class="card-body">
+                <h5 class="card-title">Error 👎</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+        <section class="text-center container">
+            <div class="row mt-3">
+                <div class="col">
+                    <a th:href="@{/}" class="btn btn-secondary my-2">Volver</a>
+                </div>
+            </div>
+        </section>
+    
+
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
 </html>
