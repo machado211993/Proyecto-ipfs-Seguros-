@@ -12,13 +12,12 @@ import com.ipfs.web.repositorios.RelevamientoRepositorio;
 import com.ipfs.web.repositorios.SiniestroRepositorio;
 import com.ipfs.web.repositorios.VehiculoRepositorio;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 @Service
 public class RelevamientoServicio {
 
@@ -36,65 +35,46 @@ public class RelevamientoServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearRelevamiento(/*MultipartFile archivo,*/ String idRelevamiento, String agenciaSeguro, String idSiniestro, String idVehiculo, String idCliente, String idConductor) throws MiException {
+    public void crearRelevamiento(/*MultipartFile archivo,*/ String idRelevamiento, String agenciaSeguro, String idSiniestro, String idVehiculo,
+    String idCliente, String idConductor) throws MiException {
 
-        validar(/*archivo,*/ idRelevamiento, agenciaSeguro, idSiniestro, idVehiculo, idCliente, idConductor);
+        validar(idRelevamiento, agenciaSeguro, idCliente, idConductor, idSiniestro, idVehiculo);
 
-        Optional<Cliente> respuestaCliente = clienteRepositorio.findById(idCliente);
-        Optional<Vehiculo> respuestaVehiculo = vehiculoRepositorio.findById(idVehiculo);
         Optional<Siniestro> respuestaSiniestro = siniestroRepositorio.findById(idSiniestro);
+        Optional<Vehiculo> respuestaVehiculo = vehiculoRepositorio.findById(idVehiculo);
+        Optional<Cliente> respuestaCliente = clienteRepositorio.findById(idCliente);
         Optional<Conductor> respuestaConductor = conductorRepositorio.findById(idConductor);
-     
-        Siniestro datosSiniestro = new Siniestro();
-        Vehiculo vehiculoAsegurado = new Vehiculo();
-        Vehiculo vehiculoTercero = new Vehiculo();
-        Cliente datosAsegurado = new Cliente();
-        Conductor conductorVehiAsegurado = new Conductor();
-        Cliente datosTitularTercero = new Cliente();
-        Conductor conductorVehiTercero = new Conductor();
-       
+
+        Siniestro siniestro = new Siniestro();
+        Vehiculo vehiculo = new Vehiculo();
+        Cliente cliente = new Cliente();
+        Conductor conductor = new Conductor();
 
         if (respuestaSiniestro.isPresent()) {
 
-            datosSiniestro = respuestaSiniestro.get();
+            siniestro = respuestaSiniestro.get();
         }
 
         if (respuestaVehiculo.isPresent()) {
 
-            vehiculoAsegurado = respuestaVehiculo.get();
+            vehiculo = respuestaVehiculo.get();
         }
-        if (respuestaVehiculo.isPresent()) {
+        if (respuestaCliente.isPresent()) {
 
-            vehiculoTercero = respuestaVehiculo.get();
+            cliente = respuestaCliente.get();
         }
-         if (respuestaCliente.isPresent()) {
+        if (respuestaConductor.isPresent()) {
 
-            datosAsegurado = respuestaCliente.get();
-        }
-          if (respuestaConductor.isPresent()) {
-
-            conductorVehiAsegurado = respuestaConductor.get();
-        }
-          if (respuestaCliente.isPresent()) {
-
-            datosTitularTercero = respuestaCliente.get();
-        }
-          if (respuestaConductor.isPresent()) {
-
-            conductorVehiTercero = respuestaConductor.get();
+            conductor = respuestaConductor.get();
         }
 
         Relevamiento relevamiento = new Relevamiento();
 
         relevamiento.setAgenciaSeguro(agenciaSeguro);
-        relevamiento.setDatosSiniestro(datosSiniestro);
-        relevamiento.setVehiculoAsegurado(vehiculoAsegurado);
-        relevamiento.setVehiculoTercero(vehiculoTercero);
-        relevamiento.setDatosAsegurado(datosAsegurado);
-        relevamiento.setConductorVehiAsegurado(conductorVehiAsegurado);
-        relevamiento.setDatosTitularTercero(datosTitularTercero);
-        relevamiento.setConductorVehiTercero(conductorVehiTercero);
-        
+        relevamiento.setCliente(cliente);
+        relevamiento.setConductor(conductor);
+        relevamiento.setSiniestro(siniestro);
+        relevamiento.setVehiculo(vehiculo);
 
         /*Imagen imagen = imagenServicio.guardar(archivo);*/
 
@@ -102,7 +82,7 @@ public class RelevamientoServicio {
 
         relevamientoRepositorio.save(relevamiento);
     }
-    //funcionalidad para listado de relevamiento
+    //funcionalidad para listado de productos
 
     public List<Relevamiento> listarRelevamiento() {
 
@@ -127,54 +107,63 @@ public class RelevamientoServicio {
 //        return productoRepositorio.findAll(pageable);
 //    }
 
-//    @Transactional
-//    public void modificarProducto(MultipartFile archivo, String idProducto, String codigo, String nombre, Integer precio, String idProveedor, String idRubro) throws MiException {
-//
-//        validar(archivo, idProducto, codigo, nombre, precio, idProveedor, idRubro);
-//
-//        Optional<Producto> respuesta = productoRepositorio.findById(idProducto);
-//        Optional<Proveedor> respuestaProveedor = proveedorRepositorio.findById(idProveedor);
-//        Optional<Rubro> respuestaRubro = rubroRepositorio.findById(idRubro);
-//
-//        Proveedor proveedor = new Proveedor();
-//        Rubro rubro = new Rubro();
-//
-//        if (respuestaProveedor.isPresent()) {
-//
-//            proveedor = respuestaProveedor.get();
-//        }
-//
-//        if (respuestaRubro.isPresent()) {
-//
-//            rubro = respuestaRubro.get();
-//        }
-//
-//        if (respuesta.isPresent()) {
-//
-//            Producto producto = respuesta.get();
-//
-//            producto.setCodigo(codigo);
-//            producto.setNombre(nombre);
-//
-//            producto.setPrecio(precio);
-//
-//            producto.setProveedor(proveedor);
-//
-//            producto.setRubro(rubro);
-//
-//            String idImagen = null;
-//
-//            if (producto.getImagen() != null) {
-//                idImagen = producto.getImagen().getIdImagen();
-//            }
-//
-//            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-//            producto.setImagen(imagen);
-//
-//            productoRepositorio.save(producto);
-//
-//        }
-//    }
+    @Transactional
+    public void modificarRelevamiento(/*MultipartFile archivo, */String idRelevamiento ,String agenciaSeguro , String idCliente, String idConductor, String idSiniestro, String idVehiculo) throws MiException {
+
+        validar(idRelevamiento, agenciaSeguro, idCliente, idConductor, idSiniestro, idVehiculo);
+        Optional<Relevamiento> respuesta = relevamientoRepositorio.findById(idRelevamiento);
+        Optional<Siniestro> respuestaSiniestro = siniestroRepositorio.findById(idSiniestro);
+        Optional<Vehiculo> respuestaVehiculo = vehiculoRepositorio.findById(idVehiculo);
+        Optional<Cliente> respuestaCliente = clienteRepositorio.findById(idCliente);
+        Optional<Conductor> respuestaConductor = conductorRepositorio.findById(idConductor);
+
+        Siniestro siniestro = new Siniestro();
+        Vehiculo vehiculo = new Vehiculo();
+        Cliente cliente = new Cliente();
+        Conductor conductor = new Conductor();
+
+
+        if (respuestaSiniestro.isPresent()) {
+
+            siniestro = respuestaSiniestro.get();
+        }
+
+        if (respuestaVehiculo.isPresent()) {
+
+            vehiculo = respuestaVehiculo.get();
+        }
+        if (respuestaCliente.isPresent()) {
+
+            cliente = respuestaCliente.get();
+        }
+        if (respuestaConductor.isPresent()) {
+
+            conductor = respuestaConductor.get();
+        }
+
+        if (respuesta.isPresent()) {
+
+            Relevamiento relevamiento = respuesta.get();
+
+            relevamiento.setAgenciaSeguro(agenciaSeguro);
+            relevamiento.setCliente(cliente);
+            relevamiento.setConductor(conductor);
+            relevamiento.setSiniestro(siniestro);
+            relevamiento.setVehiculo(vehiculo);
+
+           /*  String idImagen = null;
+
+            if (relevamiento.getImagen() != null) {
+                idImagen = relevamiento.getImagen().getIdImagen();
+            }
+
+            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+            relevamiento.setImagen(imagen);*/
+
+            relevamientoRepositorio.save(relevamiento);
+
+        }
+    }
 
     public Relevamiento getOne(String idRelevamiento) {
         return relevamientoRepositorio.getOne(idRelevamiento); //encontrar uno 
@@ -186,27 +175,27 @@ public class RelevamientoServicio {
         relevamientoRepositorio.deleteById(idRelevamiento);
     }
 
-    private void validar(/*MultipartFile archivo,*/ String idRelevamiento, String agenciaSeguro, String idSiniestro, String idVehiculo, String idCliente, String idConductor) throws MiException {
+    private void validar(/*MultipartFile archivo,*/ String idRelevamiento, String agenciaSeguro, String idVehiculo, String idSiniestro, String idCLiente, String idConductor) throws MiException {
 
         if (idRelevamiento == null) {
             throw new MiException("el idRelevamiento no puede ser nulo"); //
         }
         if (agenciaSeguro == null) {
-            throw new MiException("la agenciaSeguro no puede ser nulo"); //
+            throw new MiException("la agencia de seguro no puede ser nulo"); //
+        }
+        if (idCLiente.isEmpty() || idCLiente == null) {
+            throw new MiException("el idCliente no puede ser nulo o estar vacio");
+        }
+        if (idConductor == null) {
+            throw new MiException("el idCOnductor no puede ser nulo");
         }
         if (idSiniestro.isEmpty() || idSiniestro == null) {
-            throw new MiException("el siniestro no puede ser nulo o estar vacio");
-        }
-        if (idVehiculo == null) {
-            throw new MiException("vehiculo no puede ser nulo");
-        }
-        if (idCliente.isEmpty() || idCliente == null) {
-            throw new MiException("el cliente no puede ser nulo o estar vacio");
+            throw new MiException("el idSiniestro no puede ser nulo o estar vacio");
         }
 
-        if (idConductor.isEmpty() || idConductor == null) {
-            throw new MiException("El conductor no puede ser nula o estar vacia");
+        if (idVehiculo.isEmpty() || idVehiculo == null) {
+            throw new MiException("El idVehiculo no puede ser nula o estar vacia");
         }
-
+       
     }
 }

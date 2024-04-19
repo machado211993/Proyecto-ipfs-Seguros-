@@ -11,7 +11,7 @@
         <nav class="navbar navbar-expand-lg navBar">
             <div class="containerImg">
                 <a th:href="@{/}" class="navbar-brand d-flex align-items-center" id="navbar-logo">
-                    <img th:src="@{/img/alcancia.png}" width="100px" height="auto" alt="Img logo egg">
+                    <img th:src="@{/img/ipfs.png}" width="100px" height="auto" alt="Img logo egg">
                 </a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,74 +113,76 @@
             </div>
         </nav>
         
+        
         <div class="container-fluid m-5 contenedor">
 
-            <form class="formulario" action="/relevamiento/registro" method="POST" enctype="multipart/form-data">
+            <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+                <form class="formulario" action="/relevamiento/registro" method="POST" enctype="multipart/form-data">
 
-                <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-                    <div class="card-body">
-                        <h5 class="card-title">Error 👎</h5>
-                        <p class="card-text" th:text="${error}"></p>
+                    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                        <div class="card-body">
+                            <h5 class="card-title">Error 👎</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
                     </div>
-                </div>
-                <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                    <div class="card-body">
-                        <h5 class="card-title">Exito!</h5>
-                        <p class="card-text" th:text="${exito}"></p>
+                    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                        <div class="card-body">
+                            <h5 class="card-title">Exito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
                     </div>
-                </div>
-                <label class="mb-2">Cargar Relevamiento</label> 
-                <div class="form-group my-3">
-                    <input type="text" class="form-control" name="agenciaSeguro" placeholder="Agencia de Seguro">
-                </div>
-                <div class="form-group my-3">
-                    <select name="idSiniestro">
-                        <option>Seleccionar Siniestro</option>
-
-                        <option th:each="siniestro : ${siniestros}"
-                                th:value="${siniestro.idSiniestro}"
-                                th:text="${siniestro.datosSiniestro}"
-                                />
-                    </select>
-                </div>
-
-                <div class="form-group my-3">
-                    <select name="idVehiculo">
-                        <option>Seleccionar Vehiculo</option>
-
-                        <option th:each="vehiculo : ${vehiculos}"
-                                th:value="${vehiculo.idVehiculo}"
-                                th:text="${vehiculo.patente}"
-                                />
-                    </select>
-                </div>
-
-                <div class="form-group my-3">
-                    <select name="idCliente">
-                        <option>Seleccionar Cliente</option>
-
-                        <option th:each="cliente : ${clientes}"
-                                th:value="${cliente.idCliente}"
-
-                                />
-                    </select>
-                </div>
-
-                <div class="form-group my-3">
-
-                    <select name="idConductor">
-
-                        <option>Seleccionar Conductor</option>
-
-                        <option th:each="conductor : ${conductores}"
-                                th:value="${conductor.idConductor}"
-
-                                />
-                    </select>
-                </div>              
-
-                <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
-            </form>
+                    <label class="mb-2">Cargar Relevamiento</label> 
+                    <div class="form-group my-3">
+    
+                        <input type="text" class="form-control" name="agenciaSeguro" placeholder="agencia de seguro">
+                    </div>
+                    
+    
+                    <div class="form-group my-3">
+    
+                        <select name="idCliente">
+    
+                            <option>Seleccionar Cliente</option>
+    
+                            <option th:each="cliente : ${clientes}"
+                                    th:value="${cliente.idCliente}"
+                                    th:text="${cliente.apellidoNombre}"
+                                    />
+                        </select>
+                    </div>
+                    <div class="form-group my-3">
+                        <select name="idVehiculo">  
+                            <option>Seleccionar Vehiculo</option>
+                            <option th:each="vehiculo : ${vehiculos}"
+                                    th:value="${vehiculo.idVehiculo}" 
+                                    th:text="${vehiculo.patente}"
+                                    />
+                        </select>
+                    </div>
+                    <div class="form-group my-3">
+                        <select name="idSiniestro">  
+                            <option>Seleccionar Siniestro</option>
+                            <option th:each="siniestro : ${siniestros}"
+                                    th:value="${siniestro.idSiniestro}" 
+                                    th:text="${siniestro.numeroSiniestro}"
+                                    />
+                        </select>
+                    </div>
+                    <div class="form-group my-3">
+                        <select name="idConductor">  
+                            <option>Seleccionar Conductor</option>
+                            <option th:each="conductor : ${conductores}"
+                                    th:value="${conductor.idConductor}" 
+                                    th:text="${conductor.apellidoNombre}"
+                                    />
+                        </select>
+                    </div>
+    
+                    <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
+                </form>
+    
+            </div>
+            
 
 
             <section class=" text-center container">
@@ -241,7 +243,7 @@
         
                 <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-muted">Inicio</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Características</a></li>
-                <li class="nav-item"><a th:href="@{/producto/lista}" class="nav-link px-2 text-muted">Precios</a></li>
+               
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
                 <li class="nav-item"><a th:href="@{/footer/about}" class="nav-link px-2 text-muted">Acerca</a></li>
             </ul>
@@ -262,7 +264,6 @@
                 </a>
             </div>
         </footer>
-        
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

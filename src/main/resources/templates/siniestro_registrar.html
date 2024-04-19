@@ -8,11 +8,10 @@
         <link rel="stylesheet" href="/css/styles.css"> 
     </head>
     <body>
-
         <nav class="navbar navbar-expand-lg navBar">
             <div class="containerImg">
                 <a th:href="@{/}" class="navbar-brand d-flex align-items-center" id="navbar-logo">
-                    <img th:src="@{/img/alcancia.png}" width="100px" height="auto" alt="Img logo egg">
+                    <img th:src="@{/img/ipfs.png}" width="100px" height="auto" alt="Img logo egg">
                 </a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,35 +115,46 @@
         
         <div class="container-fluid m-5 contenedor">
 
-            <form class="formulario" th:action="@{/siniestro/registro}" method="POST">
-                <div class="form-group my-3">
-                    <label class="mb-2">Cargar Siniestros</label> 
-                    <input type="text" class="form-control" name="polizaNumero" placeholder="Numero de poliza">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="numeroSiniestro" placeholder="Numero de siniestro">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="fechaSiniestro" placeholder="Fecha de siniestro">
-                </div>
-                  <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="horaSiniestro" placeholder="Hora de siniestro">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="lugarHecho" placeholder="lugar del hecho">                 
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="estadoTiempo" placeholder="Estado del Tiempo">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="comisaria" placeholder="comisaria">
-                </div>
-                <div class="form-group my-3">                   
-                    <input type="text" class="form-control" name="provincia" placeholder="provincia">
-                </div>
-         
-                <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
-            </form>
+            <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+                <form class="formulario" th:action="@{/siniestro/registro}" method="POST">
+            
+                    <div class="form-group my-3">
+                        <label class="mb-2">Cargar Siniestros</label> 
+                        <input type="text" class="form-control" name="polizaNumero" placeholder="Número de póliza">
+                    </div>
+            
+                    <div class="form-group my-3">                   
+                        <input type="text" class="form-control" name="numeroSiniestro" placeholder="Número de siniestro">
+                    </div>
+            
+                    <div class="form-group my-3">                   
+                        <input type="text" class="form-control" name="fechaSiniestro" placeholder="Fecha de siniestro">
+                    </div>
+            
+                    <div class="form-group my-3">                   
+                        <input type="text" class="form-control" name="horaSiniestro" placeholder="Hora de siniestro">
+                    </div>
+            
+                    <div class="form-group my-3">                   
+                        <input type="text" class="form-control" name="lugarHecho" placeholder="Lugar del hecho">                 
+                    </div>
+            
+                    <div class="form-group my-3">                   
+                        <input type="text" class="form-control" name="estadoTiempo" placeholder="Estado del tiempo">
+                    </div>
+            
+                    <div class="form-group my-3">                   
+                        <input type="text" class="form-control" name="comisaria" placeholder="Comisaría">
+                    </div>
+            
+                    <div class="form-group my-3">                   
+                        <input type="text" class="form-control" name="provincia" placeholder="Provincia">
+                    </div>
+                 
+                    <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
+                </form>
+            </div>
+            
 
             <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
                 <div class="card-body">
@@ -216,7 +226,7 @@
         
                 <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-muted">Inicio</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Características</a></li>
-                <li class="nav-item"><a th:href="@{/producto/lista}" class="nav-link px-2 text-muted">Precios</a></li>
+               
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
                 <li class="nav-item"><a th:href="@{/footer/about}" class="nav-link px-2 text-muted">Acerca</a></li>
             </ul>
@@ -237,9 +247,6 @@
                 </a>
             </div>
         </footer>
-        
-
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
 </html>
