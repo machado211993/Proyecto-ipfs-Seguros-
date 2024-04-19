@@ -1,7 +1,6 @@
 package com.ipfs.web.repositorios;
 
 import com.ipfs.web.entidades.Conductor;
-import com.ipfs.web.entidades.Siniestro;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
