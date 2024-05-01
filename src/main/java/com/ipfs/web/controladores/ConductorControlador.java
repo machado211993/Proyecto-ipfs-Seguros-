@@ -1,8 +1,12 @@
 package com.ipfs.web.controladores;
 
+
+import com.ipfs.web.entidades.Conductor;
 import com.ipfs.web.excepciones.MiException;
 import com.ipfs.web.servicios.ConductorServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,9 +32,9 @@ public class ConductorControlador {
     }
 
     @PostMapping("/registro") //metodo registrado 
-    public String registro(@RequestParam(required = false) String genero, @RequestParam String titular, @RequestParam String apellidoNombre, @RequestParam String dni, @RequestParam String profesion, @RequestParam String tel, @RequestParam String domicilio, @RequestParam String cp, @RequestParam String localidad, @RequestParam String provincia, @RequestParam String estadoCivil, @RequestParam String fechaNacimiento, @RequestParam String testAlcoholemia, @RequestParam String nroRegistro, @RequestParam String categoria, @RequestParam String Expedido, @RequestParam String vencimiento,/*@RequestParam MultipartFile archivo,*/ ModelMap modelo) {
+    public String registro(@RequestParam(required = false) String genero, @RequestParam String titular, @RequestParam String nombreConductor, @RequestParam String dni, @RequestParam String profesion, @RequestParam String tel, @RequestParam String domicilio, @RequestParam String cp, @RequestParam String localidad, @RequestParam String provincia, @RequestParam String estadoCivil, @RequestParam String fechaNacimiento, @RequestParam String testAlcoholemia, @RequestParam String nroRegistro, @RequestParam String categoria, @RequestParam String Expedido, @RequestParam String vencimiento,/*@RequestParam MultipartFile archivo,*/ ModelMap modelo) {
         try {
-            conductorServicio.crearConductor(vencimiento, genero, titular, apellidoNombre, dni, profesion, tel, domicilio, cp, localidad, provincia, estadoCivil, fechaNacimiento, testAlcoholemia, nroRegistro, categoria, Expedido, vencimiento);
+            conductorServicio.crearConductor(vencimiento, genero, titular, nombreConductor, dni, profesion, tel, domicilio, cp, localidad, provincia, estadoCivil, fechaNacimiento, testAlcoholemia, nroRegistro, categoria, Expedido);
             modelo.put("exito", "el conductor fue cargado correctamente");
 
         } catch (MiException ex) {
@@ -41,23 +45,13 @@ public class ConductorControlador {
 
     }
 
-//    @GetMapping("/lista")
-//    public String listar(ModelMap modelo) {
-//
-//        List<Oferta> ofertas = ofertaServicio.listarOfertas();
-//
-//        modelo.addAttribute("ofertas", ofertas);
-//
-//        return "oferta_list.html";
-//    }
-    //funcionalidad para busqueda personalizada de ofertas 
-   /* @GetMapping("/lista")
+    @GetMapping("/listar")
     public String listar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
-        List<Vehiculo> ofertas = ofertaServicio.listAll(palabraClave);
-        modelo.addAttribute("ofertas", ofertas);
+        List<Conductor> conductores = conductorServicio.listAll(palabraClave);
+        modelo.addAttribute("conductores", conductores);
         modelo.addAttribute("palabraClave", palabraClave);
-        return "oferta_list";
-    }*/
+        return "conductor_lista";
+    }
 
     @GetMapping("/modificar/{idConductor}")
     public String modificar(@PathVariable String idConductor, ModelMap modelo) {
@@ -80,7 +74,7 @@ public class ConductorControlador {
 
     }
 
-   /* @GetMapping("/imagen/{idOferta}")  //para devolver imagen como cartas
+    /* @GetMapping("/imagen/{idOferta}")  //para devolver imagen como cartas
     public ResponseEntity<byte[]> imagenOferta(@PathVariable String idOferta) {
 
         Oferta oferta = ofertaServicio.getOne(idOferta);
@@ -93,7 +87,6 @@ public class ConductorControlador {
 
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     }*/
-
     //PARA ELIMINAR
     @GetMapping("/eliminar/{idConductor}")
     public String eliminar(@PathVariable String idConductor, ModelMap modelo) {
@@ -111,7 +104,7 @@ public class ConductorControlador {
         return "redirect:../lista";
     }
 
-   /* @GetMapping("/exportarPDF")
+    /* @GetMapping("/exportarPDF")
     public void exportarListadoDeOfertasEnPDF(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");

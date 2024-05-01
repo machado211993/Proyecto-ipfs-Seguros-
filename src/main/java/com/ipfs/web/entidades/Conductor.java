@@ -3,6 +3,7 @@ package com.ipfs.web.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,7 +19,7 @@ public class Conductor {
     private String idConductor;
     private String genero;
     private String titular;
-    private String apellidoNombre;
+    private String nombreConductor;
     private String dni;
     private String profesion;
     private String tel;
@@ -34,11 +35,18 @@ public class Conductor {
     private String Expedido;
     private String vencimiento;
 
-    public Conductor(String idConductor, String genero, String titular, String apellidoNombre, String dni, String profesion, String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil, String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String Expedido, String vencimiento) {
+    public Conductor() {
+    }
+
+    public Conductor(String idConductor, String genero, String titular, String nombreConductor, String dni,
+            String profesion,
+            String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil,
+            String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String expedido,
+            String vencimiento) {
         this.idConductor = idConductor;
         this.genero = genero;
         this.titular = titular;
-        this.apellidoNombre = apellidoNombre;
+        this.nombreConductor = nombreConductor;
         this.dni = dni;
         this.profesion = profesion;
         this.tel = tel;
@@ -51,11 +59,8 @@ public class Conductor {
         this.testAlcoholemia = testAlcoholemia;
         this.nroRegistro = nroRegistro;
         this.categoria = categoria;
-        this.Expedido = Expedido;
+        Expedido = expedido;
         this.vencimiento = vencimiento;
-    }
-
-    public Conductor() {
     }
 
 }

@@ -19,9 +19,9 @@ public class SiniestroServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearSiniestro(/*MultipartFile archivo*/String idSiniestro, String polizaNumero, String numeroSiniestro, String fechaSiniestro, String horaSiniestro, String lugarHecho, String estadoTiempo, String comisaria, String provincia) throws MiException {
+    public void crearSiniestro(/*MultipartFile archivo*/ String polizaNumero, String numeroSiniestro, String fechaSiniestro, String horaSiniestro, String lugarHecho, String estadoTiempo, String comisaria, String provincia) throws MiException {
 
-        validar(idSiniestro, polizaNumero, numeroSiniestro, fechaSiniestro, horaSiniestro, lugarHecho, estadoTiempo, comisaria, provincia);
+        validar(polizaNumero, numeroSiniestro, fechaSiniestro, horaSiniestro, lugarHecho, estadoTiempo, comisaria, provincia);
 
         Siniestro siniestro = new Siniestro();
 
@@ -63,8 +63,7 @@ public class SiniestroServicio {
     @Transactional //se pasa el idOferta porq se necesita en modificarOferta
     public void modificarSiniestro(/*MultipartFile archivo*/String idSiniestro, String polizaNumero, String numeroSiniestro, String fechaSiniestro, String horaSiniestro, String lugarHecho, String estadoTiempo, String comisaria, String provincia) throws MiException {
 
-        validar(idSiniestro, polizaNumero, numeroSiniestro, fechaSiniestro, horaSiniestro, lugarHecho, estadoTiempo, comisaria, provincia);
-
+        
         Optional<Siniestro> respuesta = siniestroRepositorio.findById(idSiniestro);
         if (respuesta.isPresent()) {
             Siniestro siniestro = respuesta.get();
@@ -99,12 +98,9 @@ public class SiniestroServicio {
         siniestroRepositorio.deleteById(idSiniestro);
     }
 
-    private void validar(/*String idOferta, MultipartFile archivo, */String idSiniestro, String polizaNumero, String numeroSiniestro, String fechaSiniestro, String horaSiniestro, String lugarHecho, String estadoTiempo, String comisaria, String provincia) throws MiException {
+    private void validar(/*String idOferta, MultipartFile archivo, */String polizaNumero, String numeroSiniestro, String fechaSiniestro, String horaSiniestro, String lugarHecho, String estadoTiempo, String comisaria, String provincia) throws MiException {
 
-        if (idSiniestro.isEmpty() || idSiniestro == null) {
-            throw new MiException("El idSiniestro no puede ser nulo o estar vacio");
-        }
-
+      
         if (polizaNumero.isEmpty() || polizaNumero == null) {
             throw new MiException("El numero de poliza no puede ser nulo o estar vacio");
         }

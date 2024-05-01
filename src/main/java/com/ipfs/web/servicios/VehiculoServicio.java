@@ -20,21 +20,21 @@ public class VehiculoServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearVehiculo(/*MultipartFile archivo*/String aseguradora, String dominio, String marca, String modelo, String tipo, String color, String año, String dañosMateriales, String lesiones, String muerte) throws MiException {
+    public void crearVehiculo(/*MultipartFile archivo*/String aseguradora, String dominio, String marca, String modeloAuto, String tipo, String color, String anio, String danosMateriales, String lesiones, String muerte) throws MiException {
 
-        validar(aseguradora, dominio, marca, modelo, tipo, color, año, dañosMateriales, lesiones, muerte);
+        validar(aseguradora, dominio, marca, modeloAuto, tipo, color, anio, danosMateriales, lesiones, muerte);
 
         Vehiculo vehiculo = new Vehiculo();
 
         vehiculo.setAseguradora(aseguradora);
-        vehiculo.setAño(año);
+        vehiculo.setAnio(anio);
         vehiculo.setColor(color);
         vehiculo.setDominio(dominio);
-        vehiculo.setDañosMateriales(dañosMateriales);
+        vehiculo.setDanosMateriales(danosMateriales);
         vehiculo.setLesiones(lesiones);
         vehiculo.setMuerte(muerte);
         vehiculo.setTipo(tipo);
-        vehiculo.setModelo(modelo);
+        vehiculo.setModeloAuto(modeloAuto);
         vehiculo.setMarca(marca);
 
         /*oferta.setAltaOferta(new Date());*/
@@ -64,22 +64,22 @@ public class VehiculoServicio {
     }
 
     @Transactional //se pasa el idOferta porq se necesita en modificarOferta
-    public void modificarVehiculo(/*MultipartFile archivo*/String idVehiculo, String aseguradora, String dominio, String marca, String modelo, String tipo, String color, String año, String dañosMateriales, String lesiones, String muerte) throws MiException {
+    public void modificarVehiculo(/*MultipartFile archivo*/String idVehiculo, String aseguradora, String dominio, String marca, String modeloAuto, String tipo, String color, String anio, String danosMateriales, String lesiones, String muerte) throws MiException {
 
-        validar(aseguradora, dominio, marca, modelo, tipo, color, año, dañosMateriales, lesiones, muerte);
+        validar(aseguradora, dominio, marca, modeloAuto, tipo, color, anio, danosMateriales, lesiones, muerte);
 
         Optional<Vehiculo> respuesta = vehiculoRepositorio.findById(idVehiculo);
         if (respuesta.isPresent()) {
             Vehiculo vehiculo = respuesta.get();
             vehiculo.setAseguradora(aseguradora);
-            vehiculo.setAño(año);
+            vehiculo.setAnio(anio);
             vehiculo.setColor(color);
             vehiculo.setDominio(dominio);
-            vehiculo.setDañosMateriales(dañosMateriales);
+            vehiculo.setDanosMateriales(danosMateriales);
             vehiculo.setLesiones(lesiones);
             vehiculo.setMuerte(muerte);
             vehiculo.setTipo(tipo);
-            vehiculo.setModelo(modelo);
+            vehiculo.setModeloAuto(modeloAuto);
             vehiculo.setMarca(marca);
 
             /*String idImagen = null;  //se le asigna null ??
@@ -103,7 +103,7 @@ public class VehiculoServicio {
         vehiculoRepositorio.deleteById(idVehiculo);
     }
 
-    private void validar(/*String idOferta, MultipartFile archivo, */String aseguradora, String dominio, String marca, String modelo, String tipo, String color, String año, String dañosMateriales, String lesiones, String muerte) throws MiException {
+    private void validar(/*String idOferta, MultipartFile archivo, */String aseguradora, String dominio, String marca, String modeloAuto, String tipo, String color, String anio, String danosMateriales, String lesiones, String muerte) throws MiException {
      
         if (aseguradora.isEmpty() || aseguradora == null) {
             throw new MiException("la aseguradora no puede ser nulo o estar vacio");
@@ -112,19 +112,17 @@ public class VehiculoServicio {
         if (dominio.isEmpty() || dominio == null) {
             throw new MiException("el dominio no puede ser nulo o estar vacio");
         }
-        if (marca == null) {
-            throw new MiException("marca no puede ser nulo");
-        }
+      
         if (marca.isEmpty() || marca == null) {
             throw new MiException("la marca no puede ser nulo o estar vacio");
         }
-        if (modelo.isEmpty() || modelo == null) {
+        if (modeloAuto.isEmpty() || modeloAuto == null) {
             throw new MiException("el modelo no puede ser nulo o estar vacio");
         }
         if (tipo.isEmpty() || tipo == null) {
             throw new MiException("el tipo no puede ser nulo o estar vacio");
         }
-        if (año.isEmpty() || año == null) {
+        if (anio.isEmpty() || anio == null) {
             throw new MiException("el año no puede ser nulo o estar vacio");
         }
         if (muerte.isEmpty() || muerte == null) {
@@ -136,7 +134,7 @@ public class VehiculoServicio {
         if (lesiones.isEmpty() || lesiones == null) {
             throw new MiException("lesiones no puede ser nulo o estar vacio");
         }
-        if (dañosMateriales.isEmpty() || dañosMateriales == null) {
+        if (danosMateriales.isEmpty() || danosMateriales == null) {
             throw new MiException("dañosMateriales no puede ser nulo o estar vacio");
         }
     }

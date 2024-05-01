@@ -1,12 +1,8 @@
 package com.ipfs.web.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Getter
 @Setter
@@ -14,35 +10,34 @@ import org.hibernate.annotations.GenericGenerator;
 public class Relevamiento {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-
     private String idRelevamiento;
-    private String agenciaSeguro;
-    @ManyToOne
-    private Siniestro siniestro;
-    @ManyToOne
-    private Vehiculo vehiculo;
-    @ManyToOne
-    private Cliente cliente; 
-    @ManyToOne
-    private Conductor conductor;
     
+    private String agenciaSeguro;         
+    
+ 
+    @OneToOne
+    private Conductor conductor;
+
+    @OneToOne
+    private Vehiculo vehiculo;
+
+    @OneToOne
+    private Siniestro siniestro;
+
+    @OneToOne
+    private Cliente cliente;
+
     public Relevamiento() {
     }
 
-    public Relevamiento(String idRelevamiento, String agenciaSeguro, Siniestro siniestro, Vehiculo vehiculo,
-            Cliente cliente, Conductor conductor) {
+    public Relevamiento(String idRelevamiento, String agenciaSeguro, Conductor conductor, Vehiculo vehiculo, Siniestro siniestro, Cliente cliente) {
         this.idRelevamiento = idRelevamiento;
         this.agenciaSeguro = agenciaSeguro;
-        this.siniestro = siniestro;
-        this.vehiculo = vehiculo;
-        this.cliente = cliente;
         this.conductor = conductor;
+        this.vehiculo = vehiculo;
+        this.siniestro = siniestro;
+        this.cliente = cliente;
     }
-
-
-   
-   
     
 }
+

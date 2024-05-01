@@ -28,10 +28,12 @@ public class Cliente {
     private String estadoCivil;
     private String fechaNacimiento;
 
-   public Cliente() {
+    public Cliente() {
     }
 
-    public Cliente(String idCliente, String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) {
+    public Cliente(String idCliente, String genero, String apellidoNombre, String relacion, String dni, String tel,
+            String cp, String domicilio, String localidad, String provincia, String estadoCivil,
+            String fechaNacimiento) {
         this.idCliente = idCliente;
         this.genero = genero;
         this.apellidoNombre = apellidoNombre;

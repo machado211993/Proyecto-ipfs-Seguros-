@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
+     <head>
         <meta charset="utf-8" >
         <title>IPFS</title>
         <!-- CSS only  Apunta a css Index-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/styles.css"> 
-        <style>
-            /* Estilo para hacer que las tablas se vean más pequeñas */
-            .formulario input[type="text"] {
-                padding: 5px; /* Ajusta el relleno de los campos de texto */
-                font-size: 12px; /* Tamaño de fuente más pequeño */
-            }
-        </style>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navBar">
+         <nav class="navbar navbar-expand-lg navBar">
             <div class="containerImg">
                 <a th:href="@{/}" class="navbar-brand d-flex align-items-center" id="navbar-logo">
                     <img th:src="@{/img/ipfs.png}" width="100px" height="auto" alt="Img logo egg">
@@ -118,71 +111,26 @@
                 </ul>
             </div>
         </nav>
-
         <div class="container-fluid m-5 contenedor">
 
-            <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
-                <form class="formulario" th:action="@{/conductor/registro}" method="POST">
-                    <div class="form-group my-3">
-                        <label class="mb-2">Cargar Conductor</label> 
-                        <input type="text" class="form-control" name="genero" placeholder="Género">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="titular" placeholder="Titular">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="nombreConductor" placeholder="Apellido y Nombre">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="dni" placeholder="DNI">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="profesion" placeholder="Profesión">                 
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="tel" placeholder="Teléfono o Celular">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="domicilio" placeholder="Domicilio">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="cp" placeholder="Código Postal">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="localidad" placeholder="Localidad">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="provincia" placeholder="Provincia">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="estadoCivil" placeholder="Estado Civil">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="fechaNacimiento" placeholder="Fecha de Nacimiento">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="testAlcoholemia" placeholder="Test de Alcoholemia">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="nroRegistro" placeholder="Nro de Registro">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="categoria" placeholder="Categoría">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="Expedido" placeholder="Expedido">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="vencimiento" placeholder="Vencimiento">
-                    </div>
+            <form class="formulario" th:action="@{/proveedor/modificar/__${proveedor.idProveedor}__}" method="POST">
 
-                    <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
-                </form>
-            </div>
+                <input hidden th:value="${idProveedor}" name="idProveedor">
+
+                <div class="form-group my-3">
+
+                    <label class="mb-2">Cargar Proveedores</label> 
+
+                    <input th:value="${proveedor.nombre}" type="text" class="form-control" name="nombre">
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3 botones">Actualizar</button>
+
+            </form>
 
             <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
                 <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
+                    <h5 class="card-title">Exito 👍</h5>
                     <p class="card-text" th:text="${exito}"></p>
                 </div>
             </div>
@@ -201,7 +149,7 @@
             </section>
         </div>
 
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" >
 
             <symbol id="facebook" viewBox="0 0 16 16">
@@ -271,7 +219,11 @@
                 </a>
             </div>
         </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    </body>
-</html>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <!-- Minified JS carousel -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Compiled and minified Bootstrap JavaScript  carousel-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+  
+</body>
+</html> 

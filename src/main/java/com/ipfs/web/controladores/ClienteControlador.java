@@ -1,8 +1,11 @@
 package com.ipfs.web.controladores;
 
+import com.ipfs.web.entidades.Cliente;
 import com.ipfs.web.excepciones.MiException;
 import com.ipfs.web.servicios.ClienteServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,10 +30,10 @@ public class ClienteControlador {
 
     }
 
-    @PostMapping("/registro") //metodo registrado 
+    @PostMapping("/registro")
     public String registro(@RequestParam(required = false) String genero, @RequestParam String apellidoNombre, @RequestParam String relacion, @RequestParam String dni, @RequestParam String tel, @RequestParam String cp, @RequestParam String domicilio, @RequestParam String localidad,/*@RequestParam MultipartFile archivo,*/ ModelMap modelo, @RequestParam String provincia, @RequestParam String estadoCivil, @RequestParam String fechaNacimiento) {
         try {
-            clienteServicio.crearCliente(localidad, genero, apellidoNombre, relacion, dni, tel, cp, domicilio, localidad, provincia, estadoCivil, fechaNacimiento);
+            clienteServicio.crearCliente(genero, apellidoNombre, relacion, dni, tel, cp, domicilio, localidad, provincia, estadoCivil, fechaNacimiento);
             modelo.put("exito", "el cliente fue cargado correctamente");
 
         } catch (MiException ex) {
@@ -38,26 +41,16 @@ public class ClienteControlador {
             return "cliente_registrar";
         }
         return "index.html";
-
     }
 
-//    @GetMapping("/lista")
-//    public String listar(ModelMap modelo) {
-//
-//        List<Oferta> ofertas = ofertaServicio.listarOfertas();
-//
-//        modelo.addAttribute("ofertas", ofertas);
-//
-//        return "oferta_list.html";
-//    }
-    //funcionalidad para busqueda personalizada de ofertas 
-    /* @GetMapping("/lista")
+    @GetMapping("/listar")
     public String listar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
-        List<Vehiculo> ofertas = ofertaServicio.listAll(palabraClave);
-        modelo.addAttribute("ofertas", ofertas);
+        List<Cliente> clientes = clienteServicio.listAll(palabraClave);
+        modelo.addAttribute("clientes", clientes);
         modelo.addAttribute("palabraClave", palabraClave);
-        return "oferta_list";
-    }*/
+        return "cliente_lista";
+    }
+
     @GetMapping("/modificar/{idCliente}")
     public String modificar(@PathVariable String idCliente, ModelMap modelo) {
 

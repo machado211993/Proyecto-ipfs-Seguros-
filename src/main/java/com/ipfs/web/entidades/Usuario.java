@@ -25,20 +25,19 @@ public class Usuario {
     private String password;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    @OneToOne
-    private Imagen imagen;
-
+    
     public Usuario() {
     }
 
-    public Usuario(String id, String nombre, String email, String password, Rol rol, Imagen imagen) {
+    public Usuario(String id, String nombre, String email, String password, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
         this.rol = rol;
-        this.imagen = imagen;
     }
+
+   
     
 
     

@@ -19,13 +19,13 @@ public class ConductorServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearConductor(/*MultipartFile archivo*/String idConductor, String genero, String titular, String apellidoNombre, String dni, String profesion, String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil, String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String Expedido, String vencimiento) throws MiException {
+    public void crearConductor(/*MultipartFile archivo*/ String genero, String titular, String nombreConductor, String dni, String profesion, String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil, String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String Expedido, String vencimiento) throws MiException {
 
-        validar(idConductor, genero, titular, apellidoNombre, dni, profesion, tel, domicilio, cp, localidad, provincia, estadoCivil, fechaNacimiento, testAlcoholemia, nroRegistro, categoria, Expedido, vencimiento);
+        validar( genero, titular, nombreConductor, dni, profesion, tel, domicilio, cp, localidad, provincia, estadoCivil, fechaNacimiento, testAlcoholemia, nroRegistro, categoria, Expedido, vencimiento);
 
         Conductor conductor = new Conductor();
 
-        conductor.setApellidoNombre(apellidoNombre);
+        conductor.setNombreConductor(nombreConductor);
         conductor.setCategoria(categoria);
         conductor.setCp(cp);
         conductor.setDni(dni);
@@ -45,9 +45,9 @@ public class ConductorServicio {
 
         /*oferta.setAltaOferta(new Date());*/
 
- /*Imagen imagen = imagenServicio.guardar(archivo);*/
+        /*Imagen imagen = imagenServicio.guardar(archivo);*/
 
- /*oferta.setImagen(imagen);*/
+        /*oferta.setImagen(imagen);*/
         conductorRepositorio.save(conductor);
     }
 
@@ -70,14 +70,14 @@ public class ConductorServicio {
     }
 
     @Transactional //se pasa el idOferta porq se necesita en modificarOferta
-    public void modificarConductor(/*MultipartFile archivo*/String idConductor, String genero, String titular, String apellidoNombre, String dni, String profesion, String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil, String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String Expedido, String vencimiento) throws MiException {
+    public void modificarConductor(/*MultipartFile archivo*/String idConductor, String genero, String titular, String nombreConductor, String dni, String profesion, String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil, String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String Expedido, String vencimiento) throws MiException {
 
-        validar(idConductor, genero, titular, apellidoNombre, dni, profesion, tel, domicilio, cp, localidad, provincia, estadoCivil, fechaNacimiento, testAlcoholemia, nroRegistro, categoria, Expedido, vencimiento);
+       
 
         Optional<Conductor> respuesta = conductorRepositorio.findById(idConductor);
         if (respuesta.isPresent()) {
             Conductor conductor = respuesta.get();
-            conductor.setApellidoNombre(apellidoNombre);
+            conductor.setNombreConductor(nombreConductor);
             conductor.setCategoria(categoria);
             conductor.setCp(cp);
             conductor.setDni(dni);
@@ -116,11 +116,9 @@ public class ConductorServicio {
         conductorRepositorio.deleteById(idConductor);
     }
 
-    private void validar(/*String idOferta, MultipartFile archivo, */String idConductor, String genero, String titular, String apellidoNombre, String dni, String profesion, String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil, String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String Expedido, String vencimiento) throws MiException {
+    private void validar(/*String idOferta, MultipartFile archivo, */ String genero, String titular, String apellidoNombre, String dni, String profesion, String tel, String domicilio, String cp, String localidad, String provincia, String estadoCivil, String fechaNacimiento, String testAlcoholemia, String nroRegistro, String categoria, String Expedido, String vencimiento) throws MiException {
 
-        if (idConductor.isEmpty() || idConductor == null) {
-            throw new MiException("El idConductor no puede ser nulo o estar vacio");
-        }
+       
 
         if (genero.isEmpty() || genero == null) {
             throw new MiException("El genero no puede ser nulo o estar vacio");

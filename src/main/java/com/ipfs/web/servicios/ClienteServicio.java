@@ -19,9 +19,9 @@ public class ClienteServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void crearCliente(/*MultipartFile archivo*/String idCliente, String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) throws MiException {
+    public void crearCliente(/*MultipartFile archivo*/String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) throws MiException {
 
-        validar(idCliente, genero, apellidoNombre, relacion, dni, tel, cp, domicilio, localidad, provincia, estadoCivil, fechaNacimiento);
+        validar(genero, apellidoNombre, relacion, dni, tel, cp, domicilio, localidad, provincia, estadoCivil, fechaNacimiento);
 
         Cliente cliente = new Cliente();
 
@@ -66,7 +66,7 @@ public class ClienteServicio {
     @Transactional //se pasa el idOferta porq se necesita en modificarOferta
     public void modificarCLiente(/*MultipartFile archivo*/String idCliente, String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) throws MiException {
 
-        validar(idCliente, genero, apellidoNombre, relacion, dni, tel, cp, domicilio, localidad, provincia, estadoCivil, fechaNacimiento);
+       /*  validar(idCliente, genero, apellidoNombre, relacion, dni, tel, cp, domicilio, localidad, provincia, estadoCivil, fechaNacimiento);*/
 
         Optional<Cliente> respuesta = clienteRepositorio.findById(idCliente);
         if (respuesta.isPresent()) {
@@ -104,11 +104,8 @@ public class ClienteServicio {
         clienteRepositorio.deleteById(idCliente);
     }
 
-    private void validar(/*String idOferta, MultipartFile archivo, */String idCliente, String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) throws MiException {
+    private void validar(/*String idOferta, MultipartFile archivo, */ String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) throws MiException {
 
-        if (idCliente.isEmpty() || idCliente == null) {
-            throw new MiException("El idCliente no puede ser nulo o estar vacio");
-        }
 
         if (genero.isEmpty() || genero == null) {
             throw new MiException("El genero no puede ser nulo o estar vacio");

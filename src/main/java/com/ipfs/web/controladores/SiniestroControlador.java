@@ -1,8 +1,11 @@
 package com.ipfs.web.controladores;
 
+import com.ipfs.web.entidades.Siniestro;
 import com.ipfs.web.excepciones.MiException;
 import com.ipfs.web.servicios.SiniestroServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
@@ -31,7 +33,7 @@ public class SiniestroControlador {
     @PostMapping("/registro") //metodo registrado 
     public String registro(@RequestParam(required = false) String polizaNumero, @RequestParam String numeroSiniestro, @RequestParam String fechaSiniestro, @RequestParam String horaSiniestro, @RequestParam String lugarHecho, @RequestParam String estadoTiempo, @RequestParam String comisaria, @RequestParam String provincia,/*@RequestParam MultipartFile archivo,*/ ModelMap modelo) {
         try {
-            siniestroServicio.crearSiniestro(horaSiniestro, polizaNumero, numeroSiniestro, fechaSiniestro, horaSiniestro, lugarHecho, estadoTiempo, comisaria, provincia);
+            siniestroServicio.crearSiniestro(horaSiniestro, polizaNumero, numeroSiniestro, fechaSiniestro, horaSiniestro, lugarHecho, estadoTiempo, comisaria);
             modelo.put("exito", "el siniestro fue cargado correctamente");
 
         } catch (MiException ex) {
@@ -42,23 +44,13 @@ public class SiniestroControlador {
 
     }
 
-//    @GetMapping("/lista")
-//    public String listar(ModelMap modelo) {
-//
-//        List<Oferta> ofertas = ofertaServicio.listarOfertas();
-//
-//        modelo.addAttribute("ofertas", ofertas);
-//
-//        return "oferta_list.html";
-//    }
-    //funcionalidad para busqueda personalizada de ofertas 
-   /* @GetMapping("/lista")
+    @GetMapping("/listar")
     public String listar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
-        List<Vehiculo> ofertas = ofertaServicio.listAll(palabraClave);
-        modelo.addAttribute("ofertas", ofertas);
+        List<Siniestro> siniestros = siniestroServicio.listAll(palabraClave);
+        modelo.addAttribute("siniestros", siniestros);
         modelo.addAttribute("palabraClave", palabraClave);
-        return "oferta_list";
-    }*/
+        return "siniestro_lista";
+    }
 
     @GetMapping("/modificar/{idSiniestro}")
     public String modificar(@PathVariable String idSiniestro, ModelMap modelo) {
@@ -81,7 +73,7 @@ public class SiniestroControlador {
 
     }
 
-   /* @GetMapping("/imagen/{idOferta}")  //para devolver imagen como cartas
+    /* @GetMapping("/imagen/{idOferta}")  //para devolver imagen como cartas
     public ResponseEntity<byte[]> imagenOferta(@PathVariable String idOferta) {
 
         Oferta oferta = ofertaServicio.getOne(idOferta);
@@ -94,7 +86,6 @@ public class SiniestroControlador {
 
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
     }*/
-
     //PARA ELIMINAR
     @GetMapping("/eliminar/{idSiniestro}")
     public String eliminar(@PathVariable String idSiniestro, ModelMap modelo) {
@@ -112,7 +103,7 @@ public class SiniestroControlador {
         return "redirect:../lista";
     }
 
-   /* @GetMapping("/exportarPDF")
+    /* @GetMapping("/exportarPDF")
     public void exportarListadoDeOfertasEnPDF(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");

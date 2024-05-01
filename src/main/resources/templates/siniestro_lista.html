@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="utf-8" >
@@ -6,13 +6,6 @@
         <!-- CSS only  Apunta a css Index-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/styles.css"> 
-        <style>
-            /* Estilo para hacer que las tablas se vean más pequeñas */
-            .formulario input[type="text"] {
-                padding: 5px; /* Ajusta el relleno de los campos de texto */
-                font-size: 12px; /* Tamaño de fuente más pequeño */
-            }
-        </style>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navBar">
@@ -118,89 +111,70 @@
                 </ul>
             </div>
         </nav>
+        <div class="table-responsive">
+            <!--  <form class="form-inline" th:action="@{/conductor/lista}">
+  
+                  <div class="form-group mb-2">
+                      <label>Filtrar : </label>  
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                      <input type="text" name="palabraClave"  class="form-control"  id="palabraClave" th:value="${palabraClave}" placeholder="Digite el valor a buscar" required>              
+                  </div>
+                  <input type="submit" class="btn btn-info mb-2" value="Buscar">
+                  &nbsp;&nbsp;
+  
+                  <a th:href="@{/conductor/lista}" class="btn btn-secondary mb-2">Limpiar</a>
+  
+                  <a th:href="@{/conductor/exportarPDF}" class="btn btn-secondary mb-2 mx-2"> Exportar PDF </a>
+              </form>-->
+            <table class="table table-striped table-hover" id="small-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <!-- <th scope="col">id del siniestro</th>-->
+                        <th scope="col">Numero de poliza</th>
+                        <th scope="col">Numero de Siniestro</th>
+                        <th scope="col">Fecha del Siniestro </th>
+                        <th scope="col">Hora del Siniestro</th>
+                        <th scope="col">Lugar del Hecho</th>
+                        <th scope="col" >Estado del Tiempo</th>
+                        <th scope="col" >Comisaria</th>
+                        <th scope="col" >Provincia</th>
+                       
+                        
+                        <th scope="col" colspan="3" style="text-align: center;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody th:each="siniestro : ${siniestros}"> 
+                    <tr>
+                        <!-- <th scope="row" th:text="${cliente.idCliente}"></th>-->
+                        <td th:text="${siniestro.polizaNumero}"></td>
+                        <td th:text="${siniestro.numeroSiniestro}"></td>
+                        <td th:text="${siniestro.fechaSiniestro}"></td>
+                        <td th:text="${siniestro.horaSiniestro}"></td>
+                        <td th:text="${siniestro.lugarHecho}"></td>
+                        <td th:text="${siniestro.estadoTiempo}"></td>
+                        <td th:text="${siniestro.comisaria}"></td>
+                        <td th:text="${siniestro.provincia}"></td>
+                        
+                      
+                        <td>
+                            <a  th:href= "@{/siniestro/modificar/__${siniestro.idSiniestro}__}" ><i class="fas fa-feather-alt"></i> Modificar </a>
+                        </td>
 
-        <div class="container-fluid m-5 contenedor">
+                        <td>  
+                            <a  th:href= "@{/siniestro/eliminar/__${siniestro.idSiniestro}__}" ><i class="fas fa-feather-alt"></i> Eliminar </a> 
+                        </td>
+                        <td>
+                            <a   th:href="@{/siniestro/exportarPDF}"><i class="fas fa-feather-alt"></i> Exportar PDF </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <div style="border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
-                <form class="formulario" th:action="@{/conductor/registro}" method="POST">
-                    <div class="form-group my-3">
-                        <label class="mb-2">Cargar Conductor</label> 
-                        <input type="text" class="form-control" name="genero" placeholder="Género">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="titular" placeholder="Titular">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="nombreConductor" placeholder="Apellido y Nombre">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="dni" placeholder="DNI">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="profesion" placeholder="Profesión">                 
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="tel" placeholder="Teléfono o Celular">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="domicilio" placeholder="Domicilio">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="cp" placeholder="Código Postal">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="localidad" placeholder="Localidad">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="provincia" placeholder="Provincia">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="estadoCivil" placeholder="Estado Civil">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="fechaNacimiento" placeholder="Fecha de Nacimiento">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="testAlcoholemia" placeholder="Test de Alcoholemia">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="nroRegistro" placeholder="Nro de Registro">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="categoria" placeholder="Categoría">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="Expedido" placeholder="Expedido">
-                    </div>
-                    <div class="form-group my-3">                   
-                        <input type="text" class="form-control" name="vencimiento" placeholder="Vencimiento">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
-                </form>
+            <div class="py-5 text-center container">
+                <a th:href="@{/}" class="btn btn-primary">Volver</a>
             </div>
-
-            <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
-                    <p class="card-text" th:text="${exito}"></p>
-                </div>
-            </div>
-            <div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
-                <div class="card-body">
-                    <h5 class="card-title">Error 👎</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
-            </div>
-            <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
-                    </div>
-                </div>
-            </section>
         </div>
-
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" >
 
@@ -250,7 +224,7 @@
 
                 <li class="nav-item"><a th:href="@{/}" class="nav-link px-2 text-muted">Inicio</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Características</a></li>
-
+                <li class="nav-item"><a th:href="@{/producto/lista}" class="nav-link px-2 text-muted">Precios</a></li>
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
                 <li class="nav-item"><a th:href="@{/footer/about}" class="nav-link px-2 text-muted">Acerca</a></li>
             </ul>
@@ -271,7 +245,5 @@
                 </a>
             </div>
         </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
 </html>
