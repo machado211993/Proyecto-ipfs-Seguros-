@@ -78,13 +78,13 @@ public class RelevamientoServicio {
     }
     //FUNCIONALIDAD PARA FILTROS DE PRODUCTOS (busqueda)
 
-    /*public List<Relevamiento> listAll(String palabraClave) {
+    public List<Relevamiento> listAll(String palabraClave) {
         if (palabraClave != null) {
             return relevamientoRepositorio.findAll(palabraClave);
         }
 
         return relevamientoRepositorio.findAll();
-    }*/
+    }
 
 //    //funcionalidad para paginacion 
 //    public Page<Producto> findAll(Pageable pageable) {
@@ -153,7 +153,7 @@ public class RelevamientoServicio {
         return relevamientoRepositorio.getOne(idRelevamiento); //encontrar uno 
     }
 
-    //eleminar producto
+    //eleminar relevamiento
     @Transactional
     public void borrarPorId(String idRelevamiento) {
         relevamientoRepositorio.deleteById(idRelevamiento);

@@ -92,7 +92,7 @@ public class ConductorControlador {
     public String eliminar(@PathVariable String idConductor, ModelMap modelo) {
 
         modelo.put("conductor", conductorServicio.getOne(idConductor));
-        return "eliminar_conductor.html";
+        return "conductor_eliminar.html";
     }
 
     //PARA ELIMINAR
@@ -101,7 +101,7 @@ public class ConductorControlador {
 
         conductorServicio.borrarPorId(idConductor);
 
-        return "redirect:../lista";
+        return "redirect:../listar";
     }
 
     /* @GetMapping("/exportarPDF")

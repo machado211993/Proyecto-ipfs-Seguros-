@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteServicio {
-
     @Autowired
     private ClienteRepositorio clienteRepositorio;
     @Autowired
     private ImagenServicio imagenServicio;
 
+    //crear cliente
     @Transactional
     public void crearCliente(/*MultipartFile archivo*/String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) throws MiException {
 
@@ -39,12 +39,13 @@ public class ClienteServicio {
 
         /*oferta.setAltaOferta(new Date());*/
 
- /*Imagen imagen = imagenServicio.guardar(archivo);*/
+        /*Imagen imagen = imagenServicio.guardar(archivo);*/
 
- /*oferta.setImagen(imagen);*/
+        /*oferta.setImagen(imagen);*/
         clienteRepositorio.save(cliente);
     }
-
+    
+    //listar cliente 
     public List<Cliente> listarCliente() {
 
         List<Cliente> clientes = new ArrayList();
@@ -53,8 +54,8 @@ public class ClienteServicio {
 
         return clientes;
     }
+    
     //FUNCIONALIDAD PARA FILTROS DE CLIENTES(busqueda)
-
     public List<Cliente> listAll(String palabraClave) {
         if (palabraClave != null) {
             return clienteRepositorio.findAll(palabraClave);
@@ -63,7 +64,8 @@ public class ClienteServicio {
         return clienteRepositorio.findAll();
     }
 
-    @Transactional //se pasa el idOferta porq se necesita en modificarOferta
+    //modificar cliente
+    @Transactional //se pasa el idCliente porq se necesita en modificarOferta
     public void modificarCLiente(/*MultipartFile archivo*/String idCliente, String genero, String apellidoNombre, String relacion, String dni, String tel, String cp, String domicilio, String localidad, String provincia, String estadoCivil, String fechaNacimiento) throws MiException {
 
        /*  validar(idCliente, genero, apellidoNombre, relacion, dni, tel, cp, domicilio, localidad, provincia, estadoCivil, fechaNacimiento);*/

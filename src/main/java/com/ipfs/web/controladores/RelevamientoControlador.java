@@ -2,6 +2,7 @@ package com.ipfs.web.controladores;
 
 import com.ipfs.web.entidades.Cliente;
 import com.ipfs.web.entidades.Conductor;
+import com.ipfs.web.entidades.Relevamiento;
 import com.ipfs.web.entidades.Siniestro;
 import com.ipfs.web.entidades.Vehiculo;
 import com.ipfs.web.excepciones.MiException;
@@ -12,9 +13,11 @@ import com.ipfs.web.servicios.SiniestroServicio;
 import com.ipfs.web.servicios.VehiculoServicio;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,15 +82,15 @@ public class RelevamientoControlador {
         return "index.html";
     }
     
-}
+
     //PREGUNTAR  sobre la lista de productos productos productos 
-   /* @GetMapping("/lista")
+     @GetMapping("/listar")
     public String listar(ModelMap modelo, @Param("palabraClave") String palabraClave) {
-        List<Producto> productos = productoServicio.listAll(palabraClave);
-        modelo.addAttribute("productos", productos);
+        List<Relevamiento> relevamientos = relevamientoServicio.listAll(palabraClave);
+        modelo.addAttribute("relevamientos", relevamientos);
         modelo.addAttribute("palabraClave", palabraClave);
-        return "producto_list";
-    }*/
+        return "relevamiento_lista";
+    }
 
     /*@GetMapping("/modificar/{idProducto}")
     public String modificar(@PathVariable String idProducto, ModelMap modelo) {
@@ -103,7 +106,7 @@ public class RelevamientoControlador {
         return "producto_modificar.html";
     }*/
 
-   /*  @PostMapping("/modificar/{idProducto}")
+    /*@PostMapping("/modificar/{idProducto}")
     public String modificar(@PathVariable String idProducto, MultipartFile archivo, String codigo, String nombre, Integer precio, String idProveedor, String idRubro, ModelMap modelo) {
         try {
             List<Proveedor> proveedores = proveedorServicio.listarProveedores();
@@ -128,9 +131,9 @@ public class RelevamientoControlador {
             return "producto_modificar.html";
         }
 
-    }
+    }*/
 
-    @GetMapping("/imagen/{idProducto}")  //para devolver imagen como cartas
+    /*@GetMapping("/imagen/{idProducto}")  //para devolver imagen como cartas
     public ResponseEntity<byte[]> imagenProducto(@PathVariable String idProducto) {
 
         Producto producto = productoServicio.getOne(idProducto);
@@ -142,27 +145,10 @@ public class RelevamientoControlador {
         headers.setContentType(MediaType.IMAGE_JPEG); //se va a recibir una imagen de tipo JPEG
 
         return new ResponseEntity<>(imagen, headers, HttpStatus.OK);
-    }
-
-    //PARA ELIMINAR
-    @GetMapping("/eliminar/{idProducto}")
-    public String eliminar(@PathVariable String idProducto, ModelMap modelo) {
-
-        modelo.put("producto", productoServicio.getOne(idProducto));
-        return "eliminar_producto.html";
-    }
-
-    //PARA ELIMINAR
-    @PostMapping("/eliminado/{idProducto}")
-    public String eliminado(@PathVariable String idProducto, ModelMap modelo) {
-
-        productoServicio.borrarPorId(idProducto);
-
-        return "redirect:../lista";
-    }
+    }*/
 
     //PARA REPORTES PDF  DE PRODUCTOS
-    @GetMapping("/exportarPDF")
+   /* @GetMapping("/exportarPDF")
     public void exportarListadoDeProductosEnPDF(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -174,5 +160,22 @@ public class RelevamientoControlador {
         List<Producto> productos = productoServicio.listarProductos(); //cargo la lista
         ProductoExporterPDF exporter = new ProductoExporterPDF(productos);
         exporter.exportar(response);
-    }*/ 
+    }*/
+    
+       //PARA ELIMINAR
+    @GetMapping("/eliminar/{idRelevamiento}")
+    public String eliminar(@PathVariable String idRelevamiento, ModelMap modelo) {
 
+        modelo.put("relevamiento", relevamientoServicio.getOne(idRelevamiento));
+        return "relevamiento_eliminar.html";
+    }
+
+    //PARA ELIMINAR
+    @PostMapping("/eliminado/{idRelevamiento}")
+    public String eliminado(@PathVariable String idRelevamiento, ModelMap modelo) {
+
+        relevamientoServicio.borrarPorId(idRelevamiento);
+
+        return "redirect:../listar";
+    }
+}

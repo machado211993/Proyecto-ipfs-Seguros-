@@ -6,7 +6,9 @@ import com.ipfs.web.entidades.Siniestro;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface SiniestroRepositorio extends JpaRepository<Siniestro, String>{
     @Query("SELECT s FROM Siniestro s WHERE"
             + " CONCAT(s.idSiniestro, s.polizaNumero, s.numeroSiniestro, s.fechaSiniestro, s.horaSiniestro, s.lugarHecho, s.estadoTiempo, s.comisaria, s.provincia)"

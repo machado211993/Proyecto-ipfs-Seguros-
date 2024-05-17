@@ -92,8 +92,8 @@ public class VehiculoControlador {
     @GetMapping("/eliminar/{idVehiculo}")
     public String eliminar(@PathVariable String idVehiculo, ModelMap modelo) {
 
-        modelo.put("oferta", vehiculoServicio.getOne(idVehiculo));
-        return "eliminar_vehiculo.html";
+        modelo.put("vehiculo", vehiculoServicio.getOne(idVehiculo));
+        return "vehiculo_eliminar.html";
     }
 
     //PARA ELIMINAR
@@ -102,7 +102,7 @@ public class VehiculoControlador {
 
         vehiculoServicio.borrarPorId(idVehiculo);
 
-        return "redirect:../lista";
+        return "redirect:../listar";
     }
 
     /* @GetMapping("/exportarPDF")

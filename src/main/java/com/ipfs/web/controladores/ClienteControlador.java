@@ -90,7 +90,7 @@ public class ClienteControlador {
     public String eliminar(@PathVariable String idCliente, ModelMap modelo) {
 
         modelo.put("cliente", clienteServicio.getOne(idCliente));
-        return "eliminar_cliente.html";
+        return "cliente_eliminar.html";
     }
 
     //PARA ELIMINAR
@@ -99,7 +99,7 @@ public class ClienteControlador {
 
         clienteServicio.borrarPorId(idCliente);
 
-        return "redirect:../lista";
+        return "redirect:../listar";
     }
 
     /* @GetMapping("/exportarPDF")

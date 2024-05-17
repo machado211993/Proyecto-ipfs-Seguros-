@@ -91,7 +91,7 @@ public class SiniestroControlador {
     public String eliminar(@PathVariable String idSiniestro, ModelMap modelo) {
 
         modelo.put("siniestro", siniestroServicio.getOne(idSiniestro));
-        return "eliminar_siniestro.html";
+        return "siniestro_eliminar.html";
     }
 
     //PARA ELIMINAR
@@ -100,7 +100,7 @@ public class SiniestroControlador {
 
         siniestroServicio.borrarPorId(idSiniestro);
 
-        return "redirect:../lista";
+        return "redirect:../listar";
     }
 
     /* @GetMapping("/exportarPDF")
